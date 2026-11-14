@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://ckudr8chj1kgo"]
+
+[ext_resource type="Script" uid="uid://dgemna2cprj7k" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://0wagd05k67ic" path="res://SonicSprite.webp" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://dj5sqix6goqog" path="res://SPrimeRing.webp" id="3_hqtel"]
+[ext_resource type="Texture2D" uid="uid://bbpfssjyik88u" path="res://2671139-81283544-10292026-IMGSET.jpeg" id="4_hqtel"]
+[ext_resource type="Texture2D" uid="uid://c262se1nqjjv" path="res://c4c8e2c0479659b201eed1b5c284d6a7.jpg" id="5_sweqy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_je5hr"]
+size = Vector2(233, 186)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_je5hr"]
+radius = 92.23403
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
+size = Vector2(165, 152)
+
+[node name="Node2D" type="Node2D" unique_id=1766070154]
+position = Vector2(941, 330)
+
+[node name="player" type="CharacterBody2D" parent="." unique_id=609098817]
+position = Vector2(-281, -1)
+script = ExtResource("1_onrkg")
+
+[node name="playerSprite" type="Sprite2D" parent="player" unique_id=1858662089]
+position = Vector2(220.50002, 144.5)
+scale = Vector2(0.7207032, 0.50195307)
+texture = ExtResource("2_i3pqv")
+
+[node name="pickupArea" type="Area2D" parent="player" unique_id=1002811572]
+position = Vector2(216, 138)
+
+[node name="sonicHitbox" type="CollisionShape2D" parent="player/pickupArea" unique_id=1533574241]
+position = Vector2(10, 9)
+shape = SubResource("RectangleShape2D_je5hr")
+
+[node name="pickupRing" type="Sprite2D" parent="player" unique_id=1697027958]
+visible = false
+position = Vector2(86, 128)
+rotation = -6.3758025
+scale = Vector2(0.23639995, 0.1804949)
+texture = ExtResource("3_hqtel")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="player" unique_id=25192358]
+
+[node name="ringCountDisplay" type="Label" parent="player/CanvasLayer" unique_id=880880798]
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(2.6234624, 2.8561258)
+text = "Rings: "
+
+[node name="ringArea" type="Area2D" parent="." unique_id=1062239889 groups=["ringGroup"]]
+position = Vector2(-208, -7)
+rotation = 0.027615953
+scale = Vector2(1.0334867, 1.1613367)
+
+[node name="ringSprite" type="Sprite2D" parent="ringArea" unique_id=1925913185]
+position = Vector2(-535.492, -162.56322)
+scale = Vector2(0.37495178, 0.29527944)
+texture = ExtResource("3_hqtel")
+
+[node name="ringHitbox" type="CollisionShape2D" parent="ringArea" unique_id=1794167497]
+position = Vector2(-537.7394, -164.21431)
+scale = Vector2(0.75827247, 0.6041966)
+shape = SubResource("CircleShape2D_je5hr")
+
+[node name="ringBasket2" type="Area2D" parent="." unique_id=10782110 groups=["basketGroup"]]
+
+[node name="basketSprite" type="Sprite2D" parent="ringBasket2" unique_id=667399896]
+position = Vector2(44.99994, -226.00002)
+scale = Vector2(0.16823937, 0.16723771)
+texture = ExtResource("4_hqtel")
+
+[node name="basketHitbox" type="CollisionShape2D" parent="ringBasket2" unique_id=1020114248 groups=["basketGroup"]]
+position = Vector2(44.5, -225)
+shape = SubResource("RectangleShape2D_hqtel")
+
+[node name="background" type="Sprite2D" parent="." unique_id=1151302747]
+z_index = -5
+position = Vector2(-385, 11)
+scale = Vector2(3.4658313, 3.120465)
+texture = ExtResource("5_sweqy")
+
+[connection signal="area_entered" from="player/pickupArea" to="player" method="_on_pickup_area_area_entered"]
